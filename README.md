@@ -9,6 +9,10 @@ A JavaScript plugin based on jQuery library that builds an expandable/collapsabl
 
 * Status : very much a beta plugin, yet to be used on a production server
 
+* Blog post for MenuTree plugin on my blog... [Blog](http://rant.cc/SC2 ) 
+
+* Demo of the plugin behavior... [Demo](http://rant.cc/z9V) 
+
 How to build a menu tree that is expandable with jQuery
 -----------------------------
 
