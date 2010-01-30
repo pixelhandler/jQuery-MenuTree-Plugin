@@ -7,11 +7,11 @@ A JavaScript plugin based on jQuery library that builds an expandable/collapsabl
 
 * Developed using jquery version 1.4
 
-* Status : very much a beta plugin, yet to be used on a production server
+* Status : Still a beta plugin, yet to be used on a production server, UL and OL works good with aninmation on and DD works good with animation off.
 
 * Blog post for MenuTree plugin on my blog... [Blog](http://rant.cc/SC2 ) 
 
-* Demo of the plugin behavior... [Demo](http://rant.cc/z9V) 
+* Demo of the plugin behavior showing both unorderd list and definition list... [Demo](http://rant.cc/z9V) 
 
 How to build a menu tree that is expandable with jQuery
 -----------------------------
