@@ -84,12 +84,13 @@ $(document).ready(function() {
 	
 	$('#lists').menuTree({
 		animation: true,
+		speed: 'slow',
 		trace: true
 	});
 	$('#definitions').menuTree({
+		animation: false,
 		hrefBegins: '#def',
 		listElement: 'dd',
-		trace: true
 	});
 
 });

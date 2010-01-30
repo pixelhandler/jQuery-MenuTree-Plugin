@@ -61,10 +61,10 @@ table {
 .menuTree {
 	text-decoration: none;
 }
-.menuTree:before {
+#lists .menuTree:before {
 	content: "[+] ";
 }
-.expanded:before {
+#lists .expanded:before {
 	content: "[-] ";
 }
 .collapsed {
