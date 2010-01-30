@@ -57,13 +57,12 @@
 			$target.trigger('statechange');
 			// choose your animation behavior based on options passed to plugin instance
 			if (!opts.animation) {
-				//this.treeReveal.toggle();
 				$(this.treeReveal).toggleClass('collapsed');
 				$target.toggleClass('expanded');
 				$target.data('state','ready');
 				$target.trigger('statechange');
 			} else {
-				$(this.treeReveal).slideToggle( opts.speed, function() {
+				$(this.treeReveal).toggle( opts.speed, function() {
 					var $handler = $(this).prev('.menuTree');
 					$handler.toggleClass('expanded');
 					$handler.data('state','ready');
