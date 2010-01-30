@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>jQuery MenuTree Plugin : Example</title>
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+	<link href="http://github.com/pixelhandler/jQuery-MenuTree-Plugin/raw/master" type="text/html" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../jquery.plugin.menuTree.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="http://github.com/pixelhandler/jQuery-MenuTree-Plugin/raw/master/jquery.plugin.menuTree.js" type="text/javascript" charset="utf-8"></script>-->
+</head>
+
+<body>
+	
+<div class="container">
+	<ul id="lists">
+	<li><a href="#">Tree Menu</a>
+		<ul>
+			<li><a href="#">Top Parent - Tier 1</a>
+				<ul>
+					<li><a href="#">Child - Tier 2 - One</a>
+						<ul>
+							<li><a href="http://pixelhandler.com">Grandchild</a> - Tier 3 - Pixelhandler</li>
+							<li><a href="http://jquery.com">Grandchild</a> - Tier 3 - jQuery</li>
+						</ul>
+					</li>
+					<li><a href="#">Child - Tier 2 - Two</a>
+						<ul>
+							<li><a href="http://github.com/jquery/jquery/">Grandchild</a> - Tier 3 - github-jQuery</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li><a href="#">Lower Parent - Tier 1</a>
+				<ul>
+					<li><a href="#">Child - Tier 2 - One</a>
+						<ul>
+							<li>Grandchild - Tier 3 - One</li>
+							<li>Grandchild - Tier 3 - Two</li>
+						</ul>
+					</li>
+					<li><a href="#">Child - Tier 2 - Two</a>
+						<ul>
+							<li>Grandchild - Tier 3 - One</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<hr />
+
+<dl id="definitions">
+	<dt><a href="#def">Term 1</a></dt>
+	<dd>Description 1 with links listed<br />
+		<ol>
+			<li><a href="http://pixelhandler.com">Grandchild</a> - Tier 3 - Pixelhandler</li>
+			<li><a href="http://jquery.com">Grandchild</a> - Tier 3 - jQuery</li>
+		</ol>
+	</dd>
+	<dt><a href="#">Term 2</a></dt>
+	<dd>Description 2 - not targeted</dd>
+	<dt><a href="#def">Term 3</a></dt>
+	<dd>Description 4</dd>
+	<dt><a href="#def">Term 4</a></dt>
+	<dd>Description 4 with unordered list<br />
+		<ul>
+			<li>One</li>
+			<li>Two</li>
+		</ul>
+	</dd>
+</dl>
+
+</div>
+
+<br class="clear" />
+<script type="text/javascript" charset="utf-8">
+
+$(document).ready(function() {
+	
+	$('#lists').menuTree({
+		animation: true,
+		trace: true
+	});
+	$('#definitions').menuTree({
+		hrefBegins: '#def',
+		listElement: 'dd',
+		trace: true
+	});
+
+});
+
+</script>
+</body>
+</html>
