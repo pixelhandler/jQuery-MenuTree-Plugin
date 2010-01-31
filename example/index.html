@@ -6,10 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>jQuery MenuTree Plugin : Example</title>
 	<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
-	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="/javascripts/jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../jquery.plugin.tracer.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../jquery.plugin.menuTree.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -132,10 +129,9 @@
 	<br class="clear" />
 	<div id="footer"><a href="http://plugins.jquery.com/project/menuTree">Plugin home on jQuery site</a> | <a href="http://github.com/pixelhandler/jQuery-MenuTree-Plugin">Source Code</a> | &copy; 2010, Bill Heaton. Dual licensed under the <a href="http://docs.jquery.com/License">MIT or GPL Version 2 licenses.</a> </div>
 </div>
-<!-- 
+
 <script src="http://github.com/pixelhandler/jQuery-MenuTree-Plugin/raw/master/jquery.plugin.tracer.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://github.com/pixelhandler/jQuery-MenuTree-Plugin/raw/master/jquery.plugin.menuTree.js" type="text/javascript" charset="utf-8"></script>
--->
 
 <script type="text/javascript" charset="utf-8">
 
@@ -145,11 +141,6 @@ $(document).ready(function() {
 	$('#trace').tracer();
 	
 	// setup jQuery menuTree plugin
-	/*
-	$('#listA').menuTree();
-	$('#listB').menuTree();
-	$('#definitions').menuTree();
-	//
 	$('#list1').menuTree({
 		animation: true,
 		handler: 'toggle',
@@ -165,32 +156,6 @@ $(document).ready(function() {
 		listElement: 'dd',
 		hrefBegins: '#def'
 	});
-	*/
-	$('#list1').menuTree({ 
-		animation: true, 
-		handler: 'toggle',
-		speed: 'fast',
-		listElement: 'ul',
-		hrefBegins: '#',
-		trace: false
-	});
-	$('#list2').menuTree({ 
-		animation: true, 
-		handler: 'slideToggle',
-		speed: 'slow',
-		listElement: 'ul',
-		hrefBegins: '#',
-		trace: true
-	});
-	$('#definitions').menuTree({ 
-		animation: false, 
-		handler: 'css',
-		speed: 'fast',
-		listElement: 'dd',
-		hrefBegins: '#def',
-		trace: false
-	});
-	//
 	
 });
 
