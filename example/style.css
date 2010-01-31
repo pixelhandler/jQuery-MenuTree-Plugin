@@ -19,15 +19,40 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 }
 body {
-	font: 1em/1.5em Arial, sans-serif;
-	margin:1em;
+	font: .75em/1.4em "Trebuchet MS", "MS Trebuchet", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif; 
+	margin: 2em 0;
+	background-color: #181C21;
+	color: #fff;
+}
+div {
+	color: #333;
 }
 ol, ul, dl {
 	list-style: none;
-	margin: 0 1em;
+	margin: 0 .5em;
 }
-li, dd {
-	padding: 0 1em;
+li {
+	padding: 0 .5em;
+}
+dt, dd {
+	padding: 0 0 .5em 0; 
+}
+
+dt {
+	font-weight: bold;
+	font-size: 1.2em; 
+}
+h1 {
+	color: #fff;
+	font-size: 1.6em;
+	line-height: 1.5em;
+	font-weight: normal;
+}
+a, a:link {
+	color: #0F67A1;
+}
+a:hover {
+	text-decoration: underline;
 }
 blockquote, q {
 	quotes: none;
@@ -56,18 +81,71 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+hr {
+	margin: 1em;
+	color: #efefef;
+}
 
+/* Layout */
+.container {
+	width: 960px;
+	margin: 0 auto;
+}
+.container div {
+	text-align: left;
+	padding: 10px;	
+}
+#left, #mid, #right {
+	width: 276px;
+	height: 400px;
+	border: 2px solid #999;
+	margin: 6px;
+}
+#left, #mid {
+	float: left;
+	background-color: #EAF2F5;
+}
+#right p {
+	margin: 0 0 1em 0;
+}
+#right {
+	float: right;
+	background-color: #F0F0AA;
+}
+#footer {
+	color: #999;
+}
+.clear {
+	clear: left;
+}
 /* styles for menuTree plugin */
 .menuTree {
 	text-decoration: none;
 }
-#lists .menuTree:before {
+#list2 .menuTree:before {
 	content: "[+] ";
 }
-#lists .expanded:before {
+#list2 .expanded:before {
 	content: "[-] ";
 }
 .collapsed {
+	display: none;
+}
+#trace {
+	margin:0;
+}
+#trace li {
+	color: #333;
+	font-size: 9px;
+	line-height:1.3em;
+	margin:0;
+	padding:0 0 0 .5em;
+}
+#empty {
+	color: #C00;
+	text-decoration: underline;
+}
+a[href='#test'] {
 	display: none;
 }
 

@@ -1,6 +1,6 @@
 // 
 /*!
- * jquery.plugin.menuTree.js v0.2
+ * jquery.plugin.menuTree.js v0.4
  * Copyright 2010, Bill Heaton http://pixelhandler.com
  *
  * Requires jquery version 1.4
@@ -8,14 +8,15 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://docs.jquery.com/License
  *
- * Date: Sat Jan 30 3:33 GMT-8:00
+ * Date: Sat Jan 30 5:00 GMT-8:00
  */
 (function($) {
 	$.fn.menuTree = function(options) {
-
+		
 		// default options
 		$.fn.menuTree.defaults = { 
 			animation: false, 
+			handler: 'css',
 			speed: 'fast',
 			listElement: 'ul',
 			hrefBegins: '#',
@@ -25,8 +26,8 @@
 		var opts = $.extend({}, $.fn.menuTree.defaults, options);
 		// tree behavior only operates on anchor elements in the list that begin with a hash '#' unless options called for
 		$.fn.menuTree.treeTargets = this.find("a[href^='"+opts.hrefBegins+"']");
-		if (opts.trace) { console.log("option :"+opts.hrefBegins+", amiation: "+opts.animation) };
-		
+		if (opts.trace) { $.fn.tracer.log("option :"+opts.hrefBegins+", amiation: "+opts.animation); }
+
 		// select targets to reveal based on options we choose what list element to target default is 'ul'
 		function selector(curTarget) {
 			var $found;
@@ -40,14 +41,14 @@
 				default: 
 					$found = $(curTarget).next(opts.listElement);
 			}
-			if (opts.trace && false) { console.log("find: "+ opts.listElement + ", " 
-				+ $found.text().substr(0,26).trim() + "..." ) };
+			if (opts.trace) { $.fn.tracer.log("find/hide: "+opts.listElement+", "+$found.text().substr(0,26).trim() + "..." ); }
 			return $found;
 		}
 		
 		// do the magic with the click event ...
 		function clickHandler(event) {
 			var $target = $(event.target);
+			if (opts.trace) { $.fn.tracer.log($target.text()+": responsive, "+$target.data('responsive')); }
 			// if data value is not ready bail out
 			if (!$target.data('responsive')){
 				return;
@@ -56,18 +57,33 @@
 			$target.data('state','transition');
 			$target.trigger('statechange');
 			// choose your animation behavior based on options passed to plugin instance
-			if (!opts.animation) {
+			if (!opts.animation) { // false uses CSS to handle effects
 				$(this.treeReveal).toggleClass('collapsed');
 				$target.toggleClass('expanded');
 				$target.data('state','ready');
 				$target.trigger('statechange');
-			} else {
-				$(this.treeReveal).toggle( opts.speed, function() {
-					var $handler = $(this).prev('.menuTree');
-					$handler.toggleClass('expanded');
-					$handler.data('state','ready');
-					$handler.trigger('statechange');
-				});
+			} else { // true uses opts.handler to choose effects
+				
+				switch(opts.handler) {
+					case "slideToggle":
+						$(this.treeReveal).slideToggle( opts.speed, function() {
+							var $handler = $(this).prev('.menuTree');
+							$handler.toggleClass('expanded');
+							$handler.data('state','ready');
+							$handler.trigger('statechange');
+						});
+						break;
+					case "toggle":
+						$(this.treeReveal).toggle( opts.speed, function() {
+							var $handler = $(this).prev('.menuTree');
+							$handler.toggleClass('expanded');
+							$handler.data('state','ready');
+							$handler.trigger('statechange');
+						});
+						break;
+					default: 
+						// css only, but if called with true we should do something
+				}
 			}
 			event.preventDefault();
 		}
@@ -76,23 +92,19 @@
 		// used to prevent multiple clicks, click event is disabled during animation
 		$.fn.menuTree.controller = function(event) {
 			var $target = $(event.target);
-			var $collapse;
 			if ($target.data('state') != 'ready'){
 				$target.data('responsive',false);
 			} else {
 				$target.data('responsive',true);
 				// may need to collapse children
 				if ($target.next(opts.listElement).find('.expanded').length > 0) {
-					$collapse = $target.next(opts.listElement).find('.expanded');
-					$collapse.each(function() {
-						var $toHide = $(this);
-						$toHide.removeClass('expanded');
-						$toHide.next(opts.listElement).hide();
-						if (opts.trace) { console.log('collapsed: '+ $toHide.text()) };
+					$target.next(opts.listElement).find('.expanded').each(function() {
+						$(this).removeClass('expanded');
+						$(this).next(opts.listElement).hide();
+						if (opts.trace) { $.fn.tracer.log('collapsed: '+ $(this).text()); }
 					});
 				}
 			}
-			if (opts.trace) { console.log("controller, "+$target.text()+": responsive, "+$target.data('responsive')) };
 		};
 		
 		// setup tree behavior and bind on controller
@@ -115,8 +127,9 @@
 			
 			// bind the Controller to listen for state change on
 			$('.menuTree').bind('statechange',$.fn.menuTree.controller);
-			if (opts.trace && false) { console.log("target: "+$localTarget.text()+", state: "
-				+$localTarget.data('state')+", responsive: "+$localTarget.data('responsive'));}
+			if (opts.trace) { 
+				$.fn.tracer.log("target: "+$localTarget.text()+", state: "+$localTarget.data('state')+", responsive: "+$localTarget.data('responsive'));
+			}
 		});
 		
 	};
