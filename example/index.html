@@ -19,30 +19,20 @@
 				<ul>
 					<li><a href="#">Top Parent - Tier 1</a>
 						<ul>
-							<li><a href="#">Child - Tier 2 - One</a>
+							<li><a href="#">Child - Tier 2</a>
 								<ul>
-									<li><a href="http://pixelhandler.com">Grandchild</a> - Tier 3 - Pixelhandler</li>
-									<li><a href="http://jquery.com">Grandchild</a> - Tier 3 - jQuery</li>
-								</ul>
-							</li>
-							<li><a href="#">Child - Tier 2 - Two</a>
-								<ul>
-									<li><a href="http://github.com/jquery/jquery/">Grandchild</a> - Tier 3 - github-jQuery</li>
+									<li><a href="http://pixelhandler.com">Pixelhandler</a> - Tier 3</li>
+									<li><a href="http://jquery.com">jQuery</a> - Tier 3</li>
 								</ul>
 							</li>
 						</ul>
 					</li>
 					<li><a href="#">Lower Parent - Tier 1</a>
 						<ul>
-							<li><a href="#">Child - Tier 2 - One</a>
+							<li><a href="#">Child - Tier 2</a>
 								<ul>
 									<li>Grandchild - Tier 3 - One</li>
 									<li>Grandchild - Tier 3 - Two</li>
-								</ul>
-							</li>
-							<li><a href="#">Child - Tier 2 - Two</a>
-								<ul>
-									<li>Grandchild - Tier 3 - One</li>
 								</ul>
 							</li>
 						</ul>
@@ -85,13 +75,13 @@
 						<ul>
 							<li><a href="#">Child - Tier 2 - One</a>
 								<ul>
-									<li><a href="http://pixelhandler.com">Grandchild</a> - Tier 3 - Pixelhandler</li>
-									<li><a href="http://jquery.com">Grandchild</a> - Tier 3 - jQuery</li>
+									<li><a href="http://pixelhandler.com">Pixelhandler</a> - Tier 3</li>
+									<li><a href="http://jquery.com">jQuery</a> - Tier 3</li>
 								</ul>
 							</li>
 							<li><a href="#">Child - Tier 2 - Two</a>
 								<ul>
-									<li><a href="http://github.com/jquery/jquery/">Grandchild</a> - Tier 3 - github-jQuery</li>
+									<li><a href="http://github.com/jquery/jquery/">github-jQuery</a> - Tier 3</li>
 								</ul>
 							</li>
 						</ul>
@@ -132,31 +122,36 @@
 
 <script src="http://github.com/pixelhandler/jQuery-MenuTree-Plugin/raw/master/jquery.plugin.tracer.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://github.com/pixelhandler/jQuery-MenuTree-Plugin/raw/master/jquery.plugin.menuTree.js" type="text/javascript" charset="utf-8"></script>
-
 <script type="text/javascript" charset="utf-8">
 
 $(document).ready(function() {
-	
-	// setup jQuery tracer plugin
+//<![CDATA[
+
+	/* setup jQuery tracer plugin */
 	$('#trace').tracer();
 	
 	// setup jQuery menuTree plugin
 	$('#list1').menuTree({
 		animation: true,
 		handler: 'toggle',
+		hrefBegins: '#',
+		speed: 'slow',
 		trace: true
 	});
+	//
 	$('#list2').menuTree({
 		animation: true,
 		handler: 'slideToggle',
-		speed: 'slow',
-		trace: false
+		hrefBegins: '#',
+		trace: true
 	});
+	//
 	$('#definitions').menuTree({
 		listElement: 'dd',
 		hrefBegins: '#def'
 	});
-	
+	//
+//]]>
 });
 
 </script>

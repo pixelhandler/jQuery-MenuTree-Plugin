@@ -1,6 +1,6 @@
 // 
 /*!
- * jquery.plugin.menuTree.js v0.5
+ * jquery.plugin.menuTree.js v0.6
  * Copyright 2010, Bill Heaton http://pixelhandler.com
  *
  * Requires jquery version 1.4
@@ -8,32 +8,36 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://docs.jquery.com/License
  *
- * Date: Sat Jan 30 8:35 GMT-8:00
+ * Sat Jan 30 23:00 GMT-8:00
  */
+
 (function($) {
 	$.fn.menuTree = function(options) {
-		
 		// extend default options with aruments on function call
 		var opts = $.extend({}, $.fn.menuTree.defaults, options);
 		
 		// default options
 		$.fn.menuTree.defaults = { 
+			// setup animation
 			animation: false, 
 			handler: 'css',
 			speed: 'fast',
+			// setup hooks in markup
 			listElement: 'ul',
 			hrefBegins: '#',
+			// uses 'tracer' plugin
 			trace: false
 		};
+		// console.log('find: '+opts.hrefBegins); // hrefBegins undefined using 'toggle' unless called for
 		
 		// tree behavior only operates on anchor elements in the list that begin with a hash '#' unless options called for
-		$.fn.menuTree.treeTargets = this.find("a[href^='"+opts.hrefBegins+"']");
+		this.treeTargets = this.find("a[href^='"+opts.hrefBegins+"']");
 		
 		// do the magic with the click event ...
 		function clickHandler(event) {
 			var $target = $(event.target);
 			if (opts.trace) { 
-				$.fn.menuTree.msg = $target.text()+": responsive, "+$target.data('responsive');
+				$.fn.menuTree.msg = $target.text()+": responsive, "+$target.data('responsive')+", "+opts.handler;
 				$.fn.tracer.log($.fn.menuTree.msg); 
 			}
 			// if data value is not ready bail out
@@ -41,32 +45,25 @@
 				return;
 			}
 			$target.stop();
-			$target.data('state','transition');
-			$target.trigger('statechange');
 			// choose your animation behavior based on options passed to plugin instance
-			if (!opts.animation) { // false uses CSS to handle effects
+			if (!opts.animation) { 
+				// false uses CSS to handle effects
 				$(this.treeReveal).toggleClass('collapsed');
-				$target.toggleClass('expanded');
-				$target.data('state','ready');
-				$target.trigger('statechange');
-			} else { // true uses opts.handler to choose effects
-				
+				$target.toggleClass('expanded').data('state','ready').trigger('statechange');
+			} else { 
+				// true uses opts.handler to choose effects
+				$target.data('state','transition').trigger('statechange');
+
 				switch(opts.handler) {
 					case "slideToggle":
 						$(this.treeReveal).slideToggle( opts.speed, function() {
-							var $handler = $(this).prev('.menuTree');
-							$handler.toggleClass('expanded');
-							$handler.data('state','ready');
-							$handler.trigger('statechange');
-						});
+							$(this).prev('.menuTree').toggleClass('expanded').data('state','ready').trigger('statechange');
+						}).toggleClass('collapsed');
 						break;
 					case "toggle":
-						$(this.treeReveal).toggle( opts.speed, function() {
-							var $handler = $(this).prev('.menuTree');
-							$handler.toggleClass('expanded');
-							$handler.data('state','ready');
-							$handler.trigger('statechange');
-						});
+						$(this.treeReveal).toggle(opts.speed, function() {
+							$(this).prev('.menuTree').toggleClass('expanded').data('state','ready').trigger('statechange');
+						}).toggleClass('collapsed');
 						break;
 					default: 
 						// css only, but if called with true we should do something
@@ -86,8 +83,7 @@
 				// may need to collapse children
 				if ($target.next(opts.listElement).find('.expanded').length > 0) {
 					$target.next(opts.listElement).find('.expanded').each(function() {
-						$(this).removeClass('expanded');
-						$(this).next(opts.listElement).hide();
+						$(this).removeClass('expanded').next(opts.listElement).hide().addClass('collapsed');
 						if (opts.trace) { 
 							$.fn.menuTree.msg = 'collapsed child';
 							$.fn.tracer.log($.fn.menuTree.msg); 
@@ -98,7 +94,7 @@
 		};
 		
 		// setup tree behavior and bind on controller
-		return $.fn.menuTree.treeTargets.each(function() {
+		return this.treeTargets.each(function() {
 			
 			var $localTarget = $(this);
 			$localTarget.data({
@@ -133,12 +129,11 @@
 			if (opts.trace) { 
 				$.fn.menuTree.msg = "option :";
 				$.fn.menuTree.msg += opts.hrefBegins;
-				$.fn.menuTree.msg += ", aniamtion: " + opts.animation;
+				$.fn.menuTree.msg += ", animation: " + opts.animation;
 				$.fn.tracer.log($.fn.menuTree.msg);
-				$.fn.menuTree.msg = "find/hide: "+opts.listElement+"";
-				$.fn.tracer.log($.fn.menuTree.msg);
-				$.fn.menuTree.msg = "target: " + $localTarget.text() + ", state: ";
-				$.fn.menuTree.msg += $localTarget.data('state')+", responsive: ";
+				$.fn.menuTree.msg = opts.listElement + ": ";
+				$.fn.menuTree.msg = $localTarget.text().substr(0,21) + "..." ;
+				$.fn.menuTree.msg += $localTarget.data('state') + ", responsive: ";
 				$.fn.menuTree.msg += $localTarget.data('responsive');
 				$.fn.tracer.log($.fn.menuTree.msg); 
 			}
