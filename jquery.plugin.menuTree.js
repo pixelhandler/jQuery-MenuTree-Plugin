@@ -13,6 +13,9 @@
 (function($) {
 	$.fn.menuTree = function(options) {
 		
+		// extend default options with aruments on function call
+		var opts = $.extend({}, $.fn.menuTree.defaults, options);
+		
 		// default options
 		$.fn.menuTree.defaults = { 
 			animation: false, 
@@ -22,33 +25,17 @@
 			hrefBegins: '#',
 			trace: false
 		};
-		// extend default options with aruments on function call
-		var opts = $.extend({}, $.fn.menuTree.defaults, options);
+		
 		// tree behavior only operates on anchor elements in the list that begin with a hash '#' unless options called for
 		$.fn.menuTree.treeTargets = this.find("a[href^='"+opts.hrefBegins+"']");
-		if (opts.trace) { $.fn.tracer.log("option :"+opts.hrefBegins+", amiation: "+opts.animation); }
-
-		// select targets to reveal based on options we choose what list element to target default is 'ul'
-		function selector(curTarget) {
-			var $found;
-			switch(opts.listElement) {
-				case "dd":
-					$found = $(curTarget).parent().next(opts.listElement);
-					break;
-				case "ol":
-					$found = $(curTarget).next(opts.listElement);
-					break;
-				default: 
-					$found = $(curTarget).next(opts.listElement);
-			}
-			if (opts.trace) { $.fn.tracer.log("find/hide: "+opts.listElement+", "+$found.text().substr(0,26).trim() + "..." ); }
-			return $found;
-		}
 		
 		// do the magic with the click event ...
 		function clickHandler(event) {
 			var $target = $(event.target);
-			if (opts.trace) { $.fn.tracer.log($target.text()+": responsive, "+$target.data('responsive')); }
+			if (opts.trace) { 
+				$.fn.menuTree.msg = $target.text()+": responsive, "+$target.data('responsive');
+				$.fn.tracer.log($.fn.menuTree.msg); 
+			}
 			// if data value is not ready bail out
 			if (!$target.data('responsive')){
 				return;
@@ -101,7 +88,10 @@
 					$target.next(opts.listElement).find('.expanded').each(function() {
 						$(this).removeClass('expanded');
 						$(this).next(opts.listElement).hide();
-						if (opts.trace) { $.fn.tracer.log('collapsed: '+ $(this).text()); }
+						if (opts.trace) { 
+							$.fn.menuTree.msg = 'collapsed child';
+							$.fn.tracer.log($.fn.menuTree.msg); 
+						}
 					});
 				}
 			}
@@ -117,9 +107,20 @@
 			});
 			// set behavior up on all .menuTree anchors create with plugin
 			$localTarget.addClass('menuTree');
-
+			
 			// hide the child elements to reveal later
-			this.treeReveal = selector($localTarget);
+			// select targets to reveal based on options we choose what list element to target default is 'ul'
+			switch(opts.listElement) {
+				case "dd":
+					this.treeReveal = $localTarget.parent().next(opts.listElement);
+					break;
+				case "ol":
+					this.treeReveal = $localTarget.next(opts.listElement);
+					break;
+				default: 
+					this.treeReveal = $localTarget.next(opts.listElement);
+			}
+			
 			$(this.treeReveal).toggleClass('collapsed');
 			
 			// set Click event handler for targets
@@ -127,10 +128,21 @@
 			
 			// bind the Controller to listen for state change on
 			$('.menuTree').bind('statechange',$.fn.menuTree.controller);
+			
+			// trace setup if option is called as true uses 'tracer' plugin 
 			if (opts.trace) { 
-				$.fn.tracer.log("target: "+$localTarget.text()+", state: "+$localTarget.data('state')+", responsive: "+$localTarget.data('responsive'));
+				$.fn.menuTree.msg = "option :";
+				$.fn.menuTree.msg += opts.hrefBegins;
+				$.fn.menuTree.msg += ", aniamtion: " + opts.animation;
+				$.fn.tracer.log($.fn.menuTree.msg);
+				$.fn.menuTree.msg = "find/hide: "+opts.listElement+"";
+				$.fn.tracer.log($.fn.menuTree.msg);
+				$.fn.menuTree.msg = "target: " + $localTarget.text() + ", state: ";
+				$.fn.menuTree.msg += $localTarget.data('state')+", responsive: ";
+				$.fn.menuTree.msg += $localTarget.data('responsive');
+				$.fn.tracer.log($.fn.menuTree.msg); 
 			}
 		});
-		
+
 	};
 })(jQuery);

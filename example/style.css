@@ -133,6 +133,8 @@ hr {
 }
 #trace {
 	margin:0;
+	overflow: auto;
+	height: 370px;
 }
 #trace li {
 	color: #333;
