@@ -5,13 +5,15 @@ A JavaScript plugin based on jQuery library that builds an expandable/collapsabl
 ---------------------------------------
 * Requires JavaScript library: [jQuery](http://jquery.com/)
 
-* Developed using jquery version 1.4
+* Developed using jQuery version 1.4 ... [Plugin page](http://plugins.jquery.com/project/menuTree)
 
-* Status : Still a beta plugin, yet to be used on a production server, UL and OL works good with aninmation on and DD works good with animation off.
+* Status : New plugin, give it a try!
 
 * Blog post for MenuTree plugin on my blog... [Blog](http://rant.cc/SC2 ) 
 
-* Demo of the plugin behavior showing both unorderd list and definition list... [Demo](http://rant.cc/z9V) 
+* Demo of the plugin behavior showing both lists and definition list... [Demo](http://rant.cc/z9V) 
+
+* Tracer plugin added and featured with demo.
 
 How to build a menu tree that is expandable with jQuery
 -----------------------------
