@@ -1,6 +1,6 @@
 // 
 /*!
- * jquery.plugin.menuTree.js v0.4
+ * jquery.plugin.menuTree.js v0.5
  * Copyright 2010, Bill Heaton http://pixelhandler.com
  *
  * Requires jquery version 1.4
@@ -8,7 +8,7 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://docs.jquery.com/License
  *
- * Date: Sat Jan 30 5:00 GMT-8:00
+ * Date: Sat Jan 30 8:35 GMT-8:00
  */
 (function($) {
 	$.fn.menuTree = function(options) {
