@@ -106,11 +106,28 @@ This plugin has default options which you may override. The `animation` option m
 
 When called with the `animation: true` option the plugin uses the `handler` option to select `slideToggle` or `toggle` method to add effects to the display of child menu(s). You may set the speed as you please, e.g. `speed: 'slow'`. Also, you may indicate what the child menu(s) are marked up with, e.g. `listElement: 'ol'` instead of the default `listElement: 'ul'`
 
+Call the plugin like :
+
+`$('#myTree').menuTree({
+	animation: true,
+	handler: 'slideToggle',
+	hrefBegins: '#',
+	trace: true
+});`
+
+To override the default options:
+
 `$.fn.menuTree.defaults = { 
+	// setup animation
 	animation: false, 
+	handler: 'css',
 	speed: 'fast',
-	listElement: 'ul'
-}`
+	// setup hooks in markup
+	listElement: 'ul',
+	hrefBegins: '#',
+	// uses 'tracer' plugin
+	trace: false
+};`
 
 If you have any questions, please feel free to ask them on the jQuery
 meetup site, found here:  
