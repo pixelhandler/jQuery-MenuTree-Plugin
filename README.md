@@ -9,9 +9,11 @@ A JavaScript plugin based on jQuery library that builds an expandable/collapsabl
 
 * Demo of the plugin behavior showing both lists and definition list... [Demo](http://rant.cc/z9V) 
 
-* Status : New plugin, give it a try!
+* Status: New plugin, give it a try!
 
-* Tracer plugin added and featured with demo.
+* Event delegation for Click event binding to tree/list element, instead of binding to each anchor
+
+* Tracer plugin featured with demo.
 
 * Blog post for MenuTree plugin on my blog... [Blog](http://rant.cc/SC2 ) 
 
@@ -95,8 +97,11 @@ At the end of your html markup, before the closing body element use a script to 
 $(document).ready(function() {
 	
 	$('#myTree').menuTree({
-		animation: true
-	});
+		animation: true,
+		handler: 'slideToggle',
+		hrefBegins: '#',
+		trace: true
+	});`
 	
 });
 
@@ -106,16 +111,7 @@ This plugin has default options which you may override. The `animation` option m
 
 When called with the `animation: true` option the plugin uses the `handler` option to select `slideToggle` or `toggle` method to add effects to the display of child menu(s). You may set the speed as you please, e.g. `speed: 'slow'`. Also, you may indicate what the child menu(s) are marked up with, e.g. `listElement: 'ol'` instead of the default `listElement: 'ul'`
 
-Call the plugin like :
-
-`$('#myTree').menuTree({
-	animation: true,
-	handler: 'slideToggle',
-	hrefBegins: '#',
-	trace: true
-});`
-
-To override the default options:
+The default options:
 
 `$.fn.menuTree.defaults = { 
 	// setup animation
