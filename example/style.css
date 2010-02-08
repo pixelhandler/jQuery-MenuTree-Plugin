@@ -97,7 +97,7 @@ hr {
 }
 #left, #mid, #right {
 	width: 276px;
-	height: 400px;
+	height: 470px;
 	border: 2px solid #999;
 	margin: 6px;
 }
@@ -134,7 +134,7 @@ hr {
 #trace {
 	margin:0;
 	overflow: auto;
-	height: 370px;
+	height: 440px;
 }
 #trace li {
 	color: #333;
