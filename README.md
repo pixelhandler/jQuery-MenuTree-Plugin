@@ -99,7 +99,7 @@ $(document).ready(function() {
 	$('#myTree').menuTree({
 		animation: true,
 		handler: 'slideToggle',
-		hrefBegins: '#',
+		anchor: 'a[href="#"]',
 		trace: true
 	});`
 	
@@ -120,7 +120,7 @@ The default options:
 	speed: 'fast',
 	// setup hooks in markup
 	listElement: 'ul',
-	hrefBegins: '#',
+	anchor: 'a[href="#"]',
 	// uses 'tracer' plugin
 	trace: false
 };`
