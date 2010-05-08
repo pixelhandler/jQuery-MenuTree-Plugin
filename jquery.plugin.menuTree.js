@@ -1,6 +1,6 @@
 // 
 /*!
- * jquery.plugin.menuTree.js v0.7
+ * jquery.plugin.menuTree.js v0.8
  * Copyright 2010, Bill Heaton http://pixelhandler.com
  *
  * Requires jquery version 1.4
@@ -8,7 +8,7 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://docs.jquery.com/License
  *
- * Sat Feb 6 10:20 GMT-8:00
+ * Sat May 8 1:42 GMT-8:00
  */
 
 (function($) {
@@ -24,16 +24,12 @@
 			speed: 'fast',
 			// setup hooks in markup
 			listElement: 'ul',
-			hrefBegins: '#',
-			// uses 'tracer' plugin
-			trace: false
+			anchor: 'a[href^="#"]'
 		};
-		// console.log('find: '+opts.hrefBegins); // hrefBegins undefined using 'toggle' unless called for
 		
 		// tree behavior only operates on anchor elements in the list that begin with a hash '#' unless options called for
 		$.fn.menuTree.mtParent = $(this);
-		$.fn.menuTree.mtTargets = $.fn.menuTree.mtParent.find("a[href^='"+opts.hrefBegins+"']");
-		
+		$.fn.menuTree.mtTargets = $.fn.menuTree.mtParent.find(opts.anchor);
 		function reveal(element) {
 			var $reveal = $(element);
 			// select targets to reveal based on options we choose what list element to target default is 'ul'
@@ -52,15 +48,15 @@
 		
 		// do the magic with the click event ...
 		function clickHandler(event) {
-			var $target = $(event.target);
-			if (opts.trace) { 
-				$.fn.menuTree.msg = $target.text()+": responsive, "+$target.data('responsive')+", "+opts.handler;
-				$.fn.tracer.log($.fn.menuTree.msg); 
+			var $target = $(event.target).closest('a','li');
+			if ( 0 === $target.size() ) { 
+				$target = $(event.target); 
 			}
 			// if data value is not ready bail out
 			if (!$target.data('responsive')){
 				return;
 			}
+			event.preventDefault();
 			$target.stop();
 			
 			// choose your animation behavior based on options passed to plugin instance
@@ -75,7 +71,7 @@
 				switch(opts.handler) {
 					case "slideToggle":
 						reveal($target).slideToggle( opts.speed, function() {
-							$(this).prev('.menuTree').toggleClass('expanded').data('state','ready').trigger('statechange');
+							$(this).prev('.menuTree').toggleClass('expanded').blur().data('state','ready').trigger('statechange');
 						}).toggleClass('collapsed');
 						break;
 					case "toggle":
@@ -87,7 +83,6 @@
 						// css only, but if called with true we should do something
 				}
 			}
-			event.preventDefault();
 		}
 		
 		// set up listener controller function
@@ -103,10 +98,6 @@
 				if ($target.next(opts.listElement).find('.expanded').length > 0) {
 					$target.next(opts.listElement).find('.expanded').each(function() {
 						$(this).removeClass('expanded').next(opts.listElement).hide().addClass('collapsed');
-						if (opts.trace) { 
-							$.fn.menuTree.msg = 'collapsed child';
-							$.fn.tracer.log($.fn.menuTree.msg); 
-						}
 					});
 				}
 			}
@@ -136,21 +127,9 @@
 				//$localTarget.bind('statechange',$.fn.menuTree.controller); // no event delegation
 				$.fn.menuTree.mtParent.bind('statechange',$.fn.menuTree.controller);
 				
-				// trace setup if option is called as true uses 'tracer' plugin 
-				if (opts.trace) { 
-					$.fn.menuTree.msg = "option :";
-					$.fn.menuTree.msg += opts.hrefBegins;
-					$.fn.menuTree.msg += ", animation: " + opts.animation;
-					$.fn.tracer.log($.fn.menuTree.msg);
-					$.fn.menuTree.msg = opts.listElement + ": ";
-					$.fn.menuTree.msg = $localTarget.text().substr(0,21) + "..." ;
-					$.fn.menuTree.msg += $localTarget.data('state') + ", responsive: ";
-					$.fn.menuTree.msg += $localTarget.data('responsive');
-					$.fn.tracer.log($.fn.menuTree.msg); 
-				}
 			});
 		});
-		
+
 		return $.fn.menuTree.init();
 
 	};

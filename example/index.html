@@ -6,11 +6,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>jQuery MenuTree Plugin : Demo</title>
 	<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
 	<div class="container">
+		<script type="text/javascript" charset="utf-8">$('.container').hide();</script>
 		<h1>jQuery MenuTree Plugin Demo (using tracer plugin)</h1>
 		<div id="left">
 			<ul id="list1">
@@ -150,48 +151,50 @@
 	<script src="../jquery.plugin.menuTree.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 	//<![CDATA[
-		$('.container').hide();
-		setTimeout(function() { $('.container').fadeIn(750) }, 250);
-		//
-		$(document).ready(function() {
-			// setup jQuery tracer plugin 
-			$('#trace').tracer();
-			// setup jQuery menuTree plugin
-			$('#list1').menuTree({
-				animation: true,
-				handler: 'toggle',
-				hrefBegins: '#',
-				speed: 'slow',
-				trace: false
-			});
-			//
-			$('#definitions').menuTree({
-				listElement: 'dd',
-				hrefBegins: '#def',
-				trace: false
-			});
-			//
-			$('#list2').menuTree({
-				animation: true,
-				handler: 'slideToggle',
-				hrefBegins: '/',
-				trace: true
-			});
-			//
-			$('#list3').menuTree({
-				animation: true,
-				listElement: 'ol',
-				handler: 'toggle',
-				hrefBegins: '#',
-				speed: 2000,
-				trace: true
-			});
-			//
-			$('#empty').dblclick(function(){
-				alert('empty dblclick');
-			});
-			//
+
+	setTimeout(function() { $('.container').fadeIn(250) }, 250);
+	$(document).ready(function() {
+
+		/* setup jQuery tracer plugin */
+		$('#trace').tracer();
+
+		// setup jQuery menuTree plugin
+		$('#list1').menuTree({
+			animation: true,
+			handler: 'toggle',
+			anchor: 'a[href="#"]',
+			speed: 'slow',
+			trace: false
 		});
+		//
+		$('#definitions').menuTree({
+			listElement: 'dd',
+			anchor: 'a[href^="#def"]',
+			trace: false
+		});
+		//
+		$('#list2').menuTree({
+			animation: true,
+			handler: 'slideToggle',
+			anchor: 'a[href="/"]',
+			trace: true
+		});
+		//
+		$('#list3').menuTree({
+			animation: true,
+			listElement: 'ol',
+			handler: 'toggle',
+			anchor: 'a[href="#"]',
+			speed: 2000,
+			trace: true
+		});
+		//
+		$('#empty').dblclick(function(){
+			alert('empty dblclick');
+		});
+		//
+
+	});
 	//]]>
 	</script>
 
