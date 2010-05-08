@@ -52,6 +52,10 @@
 			if ( 0 === $target.size() ) { 
 				$target = $(event.target); 
 			}
+			if (opts.trace) { 
+				$.fn.menuTree.msg = $target.text()+": responsive, "+$target.data('responsive')+", "+opts.handler;
+				$.fn.tracer.log($.fn.menuTree.msg); 
+			}
 			// if data value is not ready bail out
 			if (!$target.data('responsive')){
 				return;
@@ -98,6 +102,10 @@
 				if ($target.next(opts.listElement).find('.expanded').length > 0) {
 					$target.next(opts.listElement).find('.expanded').each(function() {
 						$(this).removeClass('expanded').next(opts.listElement).hide().addClass('collapsed');
+						if (opts.trace) { 
+							$.fn.menuTree.msg = 'collapsed child';
+							$.fn.tracer.log($.fn.menuTree.msg); 
+						}
 					});
 				}
 			}
@@ -124,8 +132,20 @@
 				$.fn.menuTree.mtParent.click(clickHandler);
 			
 				// bind the Controller to listen for state change on
-				//$localTarget.bind('statechange',$.fn.menuTree.controller); // no event delegation
 				$.fn.menuTree.mtParent.bind('statechange',$.fn.menuTree.controller);
+				
+				// trace setup if option is called as true uses 'tracer' plugin 
+				if (opts.trace) { 
+					$.fn.menuTree.msg = "option :";
+					$.fn.menuTree.msg += opts.hrefBegins;
+					$.fn.menuTree.msg += ", animation: " + opts.animation;
+					$.fn.tracer.log($.fn.menuTree.msg);
+					$.fn.menuTree.msg = opts.listElement + ": ";
+					$.fn.menuTree.msg = $localTarget.text().substr(0,21) + "..." ;
+					$.fn.menuTree.msg += $localTarget.data('state') + ", responsive: ";
+					$.fn.menuTree.msg += $localTarget.data('responsive');
+					$.fn.tracer.log($.fn.menuTree.msg); 
+				}
 				
 			});
 		});
